@@ -65,12 +65,14 @@ mvn package
 默认的hadoop-site.xml和hive-site.xml在 /web/src/main/resources/templates下  
 修改相应的配置以对应相应的hadoop集群    
 服务器安装hadoop和hive客户端，并将相应的配置写入环境变量中
+```shell
 export HADOOP_HOME=hadoop_home_path
 export HADOOP_CONF_DIR=$HADOOP_HOME/conf
 export HIVE_HOME=hive_home_path
 export HIVE_CONF_DIR=$HIVE_HOME/conf
 export HIVE_LIB=${HIVE_HOME}/lib
 export HIVE_AUX_JARS_PATH=udf_jar_path
+```
 
 4.超级管理员配置  
 在com.taobao.zeus.store.Super中进行配置

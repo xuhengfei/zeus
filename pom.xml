@@ -19,7 +19,14 @@
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
-			
+			<!-- ================================================= -->
+			<!-- 1.0.1B不可用，用1.1替代    -->
+			<!-- ================================================= -->
+			<dependency>
+				<groupId>javax.transaction</groupId>
+				<artifactId>jta</artifactId>
+				<version>1.1</version>
+			</dependency>			
 			<!-- ================================================= -->
 			<!-- 日志及相关依赖（用slf4j+logback代替jcl+log4j）    -->
 			<!-- ================================================= -->

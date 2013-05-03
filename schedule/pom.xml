@@ -11,7 +11,7 @@
 	<packaging>jar</packaging>
 	<name>调度系统内核</name>
 	<description>调度系统</description>
-	<dependencies> 
+	<dependencies> 				
 		<dependency>
 			<groupId>com.taobao.zeus</groupId>
 			<artifactId>zeus-client</artifactId>
@@ -150,6 +150,7 @@
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
 			<version>2.2</version>
+			<classifier>jdk15</classifier>
 		</dependency> 
 		
 		<dependency>

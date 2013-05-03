@@ -11,12 +11,7 @@
 	<packaging>jar</packaging>
 	<name>调度系统内核</name>
 	<description>调度系统</description>
-	<dependencies> 		
-		<dependency>
-			<groupId>javax.transaction</groupId>
-			<artifactId>jta</artifactId>
-			<version>1.1</version>
-		</dependency>
+	<dependencies> 				
 		<dependency>
 			<groupId>com.taobao.zeus</groupId>
 			<artifactId>zeus-client</artifactId>

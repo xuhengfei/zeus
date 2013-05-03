@@ -149,7 +149,7 @@
 	<build>
 		<finalName>zeus-web</finalName>
 		<filters>
-			<filter>src/main/filter/antx.properties</filter>
+			<filter>${user.home}/antx.properties</filter>
 		</filters>
 		<resources>
 			<resource>

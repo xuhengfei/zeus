@@ -225,11 +225,15 @@ public class RpcFilter implements Filter, SerializationPolicyProvider {
 		if (moduleBaseURL != null) {
 			try {
 				modulePath = new URL(moduleBaseURL).getPath();
+				//web应用不在根路径情况下(contextPath 非 / 路径下)，矫正modulePath地址
+				String temp=modulePath.substring(1, modulePath.length()-1);
+				if(temp.contains("/")){
+					modulePath=temp.substring(temp.indexOf("/"))+"/";
+				}
 			} catch (MalformedURLException ex) {
 			}
 		}
 		SerializationPolicy serializationPolicy = null;
-		// WARN:在不是根web应用的情况下，下面计算的路径可能会出现问题
 		String serializationPolicyFilePath = SerializationPolicyLoader
 				.getSerializationPolicyFileName(modulePath + strongName);
 		InputStream is = context

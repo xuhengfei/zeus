@@ -50,9 +50,9 @@ mvn package
 以上步骤可以保证这个web项目正常启动，如果需要正式上线此项目，还需要配置以下内容：  
 1.动态模板配置  
 宙斯系统中有很多模板是可以动态修改的，包括以下一些，建议在正式运行之前都配置好  
-首页展示内容 启动后参见页面指南  
-首页通知内容 启动后参见页面指南  
-hive 默认udf函数 com.taobao.zeus.jobs.sub.HiveJob实现TODO内容  
+(1)首页展示内容 启动后参见页面指南  
+(2)首页通知内容 启动后参见页面指南  
+(3)hive 默认udf函数 com.taobao.zeus.jobs.sub.HiveJob实现TODO内容  
 
 2.登陆系统  
 宙斯不包含单独的注册系统  
@@ -65,5 +65,11 @@ hive 默认udf函数 com.taobao.zeus.jobs.sub.HiveJob实现TODO内容
 默认的hadoop-site.xml和hive-site.xml在 /web/src/main/resources/templates下  
 修改相应的配置以对应相应的hadoop集群    
 
-4.超级管理员配置
+4.超级管理员配置  
 在com.taobao.zeus.store.Super中进行配置
+
+5.关于浏览器兼容性  
+默认只支持webkit内核的浏览器，建议使用chrome  
+可以扩大浏览器范围，方法：/web/src/main/java/com/taobao/zeus/web/platform/Platform.gwt.xml 中注释掉 user.agent 这一行  
+当然这样会大致打包时间加长(gwt为了兼容不同的浏览器会编译更多的代码，导致打包变慢)  
+即便如此，我们也不保证IE等浏览器能够正常使用！  

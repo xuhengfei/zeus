@@ -28,7 +28,7 @@ public class FileUploadWidget extends Window {
 		fp.setButtonAlign(BoxLayoutPack.CENTER);
 		
 		final FormPanel panel = new FormPanel();
-		panel.setAction("/upload.do?type="+type+"&id="+id);
+		panel.setAction("upload.do?type="+type+"&id="+id);
 		panel.setEncoding(Encoding.MULTIPART);
 		panel.setMethod(Method.POST);
 

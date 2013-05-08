@@ -156,7 +156,7 @@ public class HiveJob extends ProcessJob {
 		//TODO 请在此处填写udf文件对应的文档id
 		String fileID=null;
 		if(fileID==null){
-			return true;
+			return false;
 		}
 		try {
 			FileDescriptor file = fileManager.getFile(fileID);

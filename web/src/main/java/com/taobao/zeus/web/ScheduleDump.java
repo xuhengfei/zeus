@@ -98,9 +98,9 @@ public class ScheduleDump extends HttpServlet  {
 								}
 							}
 						}else{
-							resp.getWriter().println("<a href='/dump.do?op=jobstatus'>Job调度状态</a>");
-							resp.getWriter().println("<a href='/dump.do?op=workers'>master-worker 状态</a>");
-							resp.getWriter().println("<a href='/dump.do?op=queue' >等待队列任务</a>");
+							resp.getWriter().println("<a href='dump.do?op=jobstatus'>Job调度状态</a>");
+							resp.getWriter().println("<a href='dump.do?op=workers'>master-worker 状态</a>");
+							resp.getWriter().println("<a href='dump.do?op=queue' >等待队列任务</a>");
 						}
 					}
 					

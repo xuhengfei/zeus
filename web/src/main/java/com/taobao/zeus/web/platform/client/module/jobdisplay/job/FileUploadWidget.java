@@ -74,7 +74,7 @@ public class FileUploadWidget extends Window {
 					}
 					FileUploadWidget.this.hide();
 				}else{
-					AlertMessageBox alert=new AlertMessageBox("上传失败", "html");
+					AlertMessageBox alert=new AlertMessageBox("上传失败", html);
 					alert.show();
 				}
 			}

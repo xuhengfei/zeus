@@ -1,5 +1,5 @@
 维护者：<a href="http://github.com/xuhengfei" target="_blank">xuhengfei</a>  
-###宙斯(zeus)是什么
+##宙斯(zeus)是什么
 宙斯是一个完整的Hadoop的作业平台  
 从Hadoop任务的调试运行到生产任务的周期调度
 宙斯支持任务的整个生命周期
@@ -14,13 +14,13 @@ Hadoop任务的自动调度
 
 
  
-####宙斯开源，不仅仅是开源技术，更是开源产品  
+###宙斯开源，不仅仅是开源技术，更是开源产品  
 开发中心，一个文档管理，开发调试的环境，在任务上线前的主要工作区域  
 <a href="http://xuhengfei.github.io/assets/images/articles/zeus/snapshot-dev.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/snapshot-dev.png" /></a>
 调度中心，生产任务的调度环境，当任务调试通过后，在此处配置调度信息进行生产调度  
 <a href="http://xuhengfei.github.io/assets/images/articles/zeus/snapshot-schedule.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/snapshot-schedule.png" /></a>  
 
-###宙斯运行原理
+##宙斯运行原理
 <a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-network.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-network.png" /></a>  
 
 <a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-struct.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-struct.png" /></a>  
@@ -29,16 +29,16 @@ Hadoop任务的自动调度
 
 <a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-schedule.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-schedule.png" /></a>   
 
-###使用指南    
+##使用指南    
 快速启动(Quick Start)：  
 
-#快速预览方案：  
-1.下载war包  
+###快速预览方案：  
+1.下载war包 <a href="http://xuhengfei.com/assets/downloads/zeus.war" target="_blank">下载</a>  
 2.本地创建Mysql数据库，创建用户:zeus,密码:zeus,创建数据库:zeus  
 3.将war包放在web容器下启动  
 快速预览方案能够启动web应用，使用shell脚本。但是不能使用其他更多功能(因为没有配置好),更多功能请下载源码按照下面说明进行配置  
 
-#源码下载配置方案：  
+###源码下载配置方案：  
 1.设置配置项  
 在/web/src/main/filter/antx.properties 中对配置项进行设置  
 设置完成后，复制到${user.home}/antx.properties处  

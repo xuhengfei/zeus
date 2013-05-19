@@ -42,7 +42,7 @@ public class MasterContext {
 	public MasterContext(ApplicationContext applicationContext){
 		this.applicationContext=applicationContext;
 	}
-	public void init(){
+	public void init(int port){
 		try {
 			scheduler=new StdSchedulerFactory().getScheduler();
 			scheduler.start();
@@ -52,7 +52,7 @@ public class MasterContext {
 		dispatcher=new Dispatcher();
 		handler=new MasterHandler(this);
 		server=new MasterServer(handler);
-		server.start();
+		server.start(port);
 		master=new Master(this);
 	}
 	public void destory(){

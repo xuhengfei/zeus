@@ -271,7 +271,7 @@
 							<modules>
 								<module>com.taobao.zeus.web.platform.Platform</module>
 							</modules>
-							<extraJvmArgs>-Xmx512m -Xms64m</extraJvmArgs>
+							<extraJvmArgs>-Xmx512m -Xms64m -Xss2m</extraJvmArgs>
 						</configuration>
 						<goals>
 							<goal>compile</goal>

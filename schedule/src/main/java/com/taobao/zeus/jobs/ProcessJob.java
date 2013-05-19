@@ -2,6 +2,8 @@ package com.taobao.zeus.jobs;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,6 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.hadoop.conf.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.io.Files;
+import com.taobao.zeus.jobs.sub.conf.ConfUtil;
 import com.taobao.zeus.jobs.sub.tool.CancelHadoopJob;
 import com.taobao.zeus.store.HierarchyProperties;
 /**
@@ -20,22 +28,134 @@ import com.taobao.zeus.store.HierarchyProperties;
  */
 public abstract class ProcessJob extends AbstractJob implements Job {
 	
+	private static Logger log=LoggerFactory.getLogger(ProcessJob.class);
+	
 	protected volatile Process process;
 	
-	protected Map<String, String> envMap=new HashMap<String, String>();
+	protected final Map<String, String> envMap;
 	
 	public static final int CLEAN_UP_TIME_MS = 1000;
 	
 	public ProcessJob(JobContext jobContext){
 		super(jobContext);
+		envMap=new HashMap<String, String>(System.getenv());
 	}
 
 	
 	public abstract List<String> getCommandList();
 	
+	
+	private void buildHadoopConf(){
+		File dir=new File(jobContext.getWorkDir()+File.separator+"hadoop_conf");
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		Map<String, String> core=new HashMap<String, String>();
+		Map<String, String> hdfs=new HashMap<String, String>();
+		Map<String, String> mapred=new HashMap<String, String>();
+		for(String key:jobContext.getProperties().getAllProperties().keySet()){
+			if(key.startsWith("core-site.")){
+				core.put(key.substring("core-site.".length()), jobContext.getProperties().getProperty(key));
+			}else if(key.startsWith("hdfs-site.")){
+				hdfs.put(key.substring("hdfs-site.".length()), jobContext.getProperties().getProperty(key));
+			}else if(key.startsWith("mapred-site.")){
+				mapred.put(key.substring("mapred-site.".length()), jobContext.getProperties().getProperty(key));
+			}
+		}
+		if(!core.isEmpty()){
+			Configuration coreC=ConfUtil.getDefaultCoreSite();
+			for(String key:core.keySet()){
+				coreC.set(key, core.get(key));
+			}
+			try {
+				File xml=new File(dir.getAbsolutePath()+File.separator+"core-site.xml");
+				if(xml.exists()){
+					xml.delete();
+				}
+				xml.createNewFile();
+				coreC.writeXml(new FileOutputStream(xml));
+			} catch (Exception e) {
+				log.error("create file core-site.xml error",e);
+			}
+		}
+		if(!hdfs.isEmpty()){
+			Configuration hdfsC=ConfUtil.getDefaultHdfsSite();
+			for(String key:hdfs.keySet()){
+				hdfsC.set(key, hdfs.get(key));
+			}
+			try {
+				File xml=new File(dir.getAbsolutePath()+File.separator+"hdfs-site.xml");
+				if(xml.exists()){
+					xml.delete();
+				}
+				xml.createNewFile();
+				hdfsC.writeXml(new FileOutputStream(xml));
+			} catch (Exception e) {
+				log.error("create file hdfs-site.xml error",e);
+			}
+		}
+		if(!mapred.isEmpty()){
+			Configuration mapredC=ConfUtil.getDefaultMapredSite();
+			for(String key:mapred.keySet()){
+				mapredC.set(key, mapred.get(key));
+			}
+			try {
+				File xml=new File(dir.getAbsolutePath()+File.separator+"mapred-site.xml");
+				if(xml.exists()){
+					xml.delete();
+				}
+				xml.createNewFile();
+				mapredC.writeXml(new FileOutputStream(xml));
+			} catch (Exception e) {
+				log.error("create file mapred-site.xml error",e);
+			}
+		}
+		
+		//HADOOP_CONF_DIR添加2个路径，分别为 WorkDir/hadoop_conf 和 HADOOP_HOME/conf 
+		String HADOOP_CONF_DIR=jobContext.getWorkDir()+File.separator+"hadoop_conf"+File.pathSeparator
+				+ConfUtil.getHadoopConfDir();
+		envMap.put("HADOOP_CONF_DIR", HADOOP_CONF_DIR);
+	}
+	private void buildHiveConf(){
+		File dir=new File(jobContext.getWorkDir()+File.separator+"hive_conf");
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		Map<String, String> hive=new HashMap<String, String>();
+		for(String key:jobContext.getProperties().getAllProperties().keySet()){
+			if(key.startsWith("hive-site.")){
+				hive.put(key.substring("hive-site.".length()), jobContext.getProperties().getProperty(key));
+			}
+		}
+		if(!hive.isEmpty()){
+			Configuration hiveC=ConfUtil.getDefaultCoreSite();
+			for(String key:hive.keySet()){
+				hiveC.set(key, hive.get(key));
+			}
+			try {
+				File xml=new File(dir.getAbsolutePath()+File.separator+"hive-site.xml");
+				if(xml.exists()){
+					xml.delete();
+				}
+				xml.createNewFile();
+				hiveC.writeXml(new FileOutputStream(xml));
+			} catch (Exception e) {
+				log.error("create file hive-site.xml error",e);
+			}
+		}
+		
+		
+		String HIVE_CONF_DIR=jobContext.getWorkDir()+File.separator+"hive_conf"+File.pathSeparator+
+				ConfUtil.getHiveConfDir();
+		envMap.put("HIVE_CONF_DIR", HIVE_CONF_DIR);
+	}
+	
 	public Integer run() throws Exception{
 		
 		int exitCode=-999;
+		
+		buildHadoopConf();
+		buildHiveConf();
 		
 		//设置环境变量
 		for(String key:jobContext.getProperties().getAllProperties().keySet()){
@@ -43,8 +163,6 @@ public abstract class ProcessJob extends AbstractJob implements Job {
 				envMap.put(key, jobContext.getProperties().getProperty(key));
 			}
 		}
-		envMap.put("HADOOP_CONF_DIR", ".:"+System.getenv("HADOOP_CONF_DIR"));
-		envMap.put("HIVE_CONF_DIR", ".:"+System.getenv("HIVE_CONF_DIR"));
 		
 		List<String> commands=getCommandList();
 		for(String s:commands){

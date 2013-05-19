@@ -21,12 +21,12 @@ public class ZeusSchedule{
 		this.applicationContext=applicationContext;
 	}
 	
-	public void startup(){
+	public void startup(int port){
 		if(!running.compareAndSet(false, true)){
 			return;
 		}
 		context=new MasterContext(applicationContext);
-		context.init();
+		context.init(port);
 	}
 	
 	public void shutdown(){

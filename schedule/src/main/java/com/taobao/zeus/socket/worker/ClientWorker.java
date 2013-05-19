@@ -177,7 +177,7 @@ public class ClientWorker {
 
 	}
 
-	public synchronized void connect(String host) throws Exception {
+	public synchronized void connect(String host,int port) throws Exception {
 		if (context.getServerChannel() != null) {
 			if (host.equals(context.getServerHost())) {
 				return;
@@ -201,7 +201,7 @@ public class ClientWorker {
 		};
 
 		final ChannelFuture connectFuture = bootstrap
-				.connect(new InetSocketAddress(host, 9898));
+				.connect(new InetSocketAddress(host, port));
 
 		connectFuture.addListener(listener);
 		if (!latch.await(2, TimeUnit.SECONDS)) {

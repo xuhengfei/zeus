@@ -41,7 +41,7 @@ public class HiveOutputCheckJob extends AbstractJob {
 		super(jobContext);
 		this.wangWangAlarm = (ZeusAlarm) applicationContext
 				.getBean("wangWangAlarm");
-		conf = ConfUtil.getWorkConf(jobContext);
+		conf = ConfUtil.getDefaultCoreSite();
 		this.tableManager = new CliTableManager(conf);
 		this.processer = p;
 		this.tableNames = p.getOutputTables();

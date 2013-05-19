@@ -1,104 +1,108 @@
 package com.taobao.zeus.jobs.sub.conf;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.Files;
-import com.taobao.zeus.jobs.JobContext;
 
 public class ConfUtil {
 	
-	private static String hiveLog4j="";
-
-	public static String getHiveLog4j() {
-		return hiveLog4j;
+	private static Logger log=LoggerFactory.getLogger(ConfUtil.class);
+	
+	public static String getHadoopHome(){
+		return System.getenv("HADOOP_HOME");
 	}
-
-	private static String defaultHadoopXml="";
-	public static String getDefaultHadoopXml() {
-		return defaultHadoopXml;
+	
+	public static String getHiveHome(){
+		return System.getenv("HIVE_HOME");
 	}
-
-	public static String getDefaultHiveXml() {
-		return defaultHiveXml;
+	
+	public static String getHiveConfDir(){
+		String dir=System.getenv("HIVE_CONF_DIR");
+		if(dir==null || "".equals(dir.trim())){
+			dir=getHiveHome()+File.separator+"conf";
+		}
+		return dir;
 	}
-
-	private static String defaultHiveXml="";
-
-	static {
+	
+	public static String getHadoopConfDir(){
+		String dir=System.getenv("HADOOP_CONF_DIR");
+		if(dir==null || "".equals(dir.trim())){
+			dir=getHadoopHome()+File.separator+"conf";
+		}
+		return dir;
+	}
+	
+	public static Configuration getDefaultHiveSite(){
 		try {
-			URL hadoop=ConfUtil.class.getClassLoader().getResource("templates/hadoop-site.xml");
-			List<String> hadoopLines=Files.readLines(new File(hadoop.getFile()), Charset.forName("utf-8"));
-			defaultHadoopXml="";
-			for(String s:hadoopLines){
-				defaultHadoopXml+=s;
+			File f=new File(getHiveConfDir()+File.separator+"hive-site.xml");
+			if(f.exists()){
+				Configuration conf=new Configuration(false);
+				conf.addResource(f.toURI().toURL());
+				return conf;
 			}
-			
-			URL hive=ConfUtil.class.getClassLoader().getResource("templates/hive-site.xml");
-			List<String> hiveLines=Files.readLines(new File(hive.getFile()), Charset.forName("utf-8"));
-			defaultHiveXml="";
-			for(String s:hiveLines){
-				defaultHiveXml+=s;
-			}
-			
 		} catch (IOException e) {
-			LoggerFactory.getLogger(ConfUtil.class).error("error get default hadoop-site.xml",e);
+			log.error("load $HIVE_CONF_DIR/hive-site.xml error",e);
 		}
-		
+		return null;
+	}
+
+	public static Configuration getDefaultCoreSite(){
 		try {
-			File f=new File(ConfUtil.class.getClassLoader().getResource("templates/hive-log4j.properties").getPath());
-			List<String> lines=Files.readLines(f, Charset.forName("utf-8"));
-			StringBuffer sb=new StringBuffer();
-			for(String s:lines){
-				sb.append(s+"\n");
+			File f=new File(getHadoopConfDir()+File.separator+"core-site.xml");
+			if(f.exists()){
+				Configuration conf=new Configuration(false);
+				conf.addResource(f.toURI().toURL());
+				return conf;
 			}
-			hiveLog4j=sb.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("load $HADOOP_CONF_DIR/core-site.xml error",e);
 		}
+		return null;
 	}
-
-	public static Configuration getWorkConf(JobContext jobContext) {
-		String workDir = jobContext.getWorkDir();
-		Configuration conf = new Configuration();
-		File hadoopSite = new File(workDir + File.separator + "hadoop-site.xml");
-		if (hadoopSite.exists()) {
-			conf.addResource(new Path(workDir + File.separator
-					+ "hadoop-site.xml"));
+	
+	public static Configuration getDefaultHdfsSite(){
+		try{
+			File f=new File(getHadoopConfDir()+File.separator+"hdfs-site.xml");
+			if(f.exists()){
+				Configuration conf=new Configuration(false);
+				conf.addResource(f.toURI().toURL());
+				return conf;
+			}
+		} catch (IOException e) {
+			log.error("load $HADOOP_CONF_DIR/hdfs-site.xml error",e);
 		}
-		File hiveSite = new File(workDir + File.separator + "hive-site.xml");
-		if (hiveSite.exists()) {
-			conf.addResource(new Path(workDir + File.separator + "hive-site.xml"));
+		return null;
+	}
+	
+	public static Configuration getDefaultMapredSite(){
+		try{
+			File f=new File(getHadoopConfDir()+File.separator+"mapred-site.xml");
+			if(f.exists()){
+				Configuration conf=new Configuration(false);
+				conf.addResource(f.toURI().toURL());
+				return conf;
+			}
+		} catch (IOException e) {
+			log.error("load $HADOOP_CONF_DIR/mapred-site.xml error",e);
 		}
-		return conf;
+		return null;
 	}
 
-	public static Configuration getDefaultConf() {
-		Configuration conf = new Configuration();
-		conf.addResource(new ByteArrayInputStream(defaultHadoopXml.getBytes()));
-		conf.addResource(new ByteArrayInputStream(defaultHiveXml.getBytes()));
-		return conf;
-	}
-
-
-
-	public static Configuration getDefaultZeusHadoopConf() {
-		Configuration conf = new Configuration();
-		conf.addResource(new ByteArrayInputStream(defaultHadoopXml.getBytes()));
-		return conf;
-	}
-
-	public static Configuration getDefaultZeusHiveConf() {
-		Configuration conf = new Configuration();
-		conf.addResource(new ByteArrayInputStream(defaultHiveXml.getBytes()));
-		return conf;
-	}
+//	public static Configuration getWorkConf(JobContext jobContext) {
+//		String workDir = jobContext.getWorkDir();
+//		Configuration conf = new Configuration();
+//		File hadoopSite = new File(workDir + File.separator + "hadoop-site.xml");
+//		if (hadoopSite.exists()) {
+//			conf.addResource(new Path(workDir + File.separator
+//					+ "hadoop-site.xml"));
+//		}
+//		File hiveSite = new File(workDir + File.separator + "hive-site.xml");
+//		if (hiveSite.exists()) {
+//			conf.addResource(new Path(workDir + File.separator + "hive-site.xml"));
+//		}
+//		return conf;
+//	}
 }

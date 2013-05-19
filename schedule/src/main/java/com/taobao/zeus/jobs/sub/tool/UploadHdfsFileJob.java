@@ -1,5 +1,7 @@
 package com.taobao.zeus.jobs.sub.tool;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +36,10 @@ public class UploadHdfsFileJob extends ProcessJob{
 //		commands.add("if [ $? == 255 ]; then");
 //		commands.add("hadoop fs -mkdir "+hdfsPath);
 //		commands.add("fi");
+		
 		commands.add("hadoop fs -copyFromLocal "+localFilePath+" "+hdfsPath);
 		return commands;
 	}
+	
 
 }

@@ -31,6 +31,14 @@ Hadoop任务的自动调度
 
 ###使用指南    
 快速启动(Quick Start)：  
+
+#快速预览方案：  
+1.下载war包  
+2.本地创建Mysql数据库，创建用户:zeus,密码:zeus,创建数据库:zeus  
+3.将war包放在web容器下启动  
+快速预览方案能够启动web应用，使用shell脚本。但是不能使用其他更多功能(因为没有配置好),更多功能请下载源码按照下面说明进行配置  
+
+#源码下载配置方案：  
 1.设置配置项  
 在/web/src/main/filter/antx.properties 中对配置项进行设置  
 设置完成后，复制到${user.home}/antx.properties处  
@@ -39,11 +47,22 @@ Hadoop任务的自动调度
 因为此jar不在maven仓库中，此jar已经在/web/libs/highcharts-1.4.0.jar  
 将systemPath路径设置为绝对路径  
 3.数据库配置  
+创建zeus数据库和hive数据库，启动后数据库里面的表会自动创建  
 zeus数据库:/web/src/main/resources/persistence.xml中对数据库进行配置  
-hive元数据库:/web/src/main/resources/templates/hive-site.xml中对Hive metastore数据库进行配置  
+hive元数据库:HIVE_HOME/conf 下的hive-site.xml进行配置  
+4.环境配置  
+解压安装hadoop,配置HADOOP_HOME/conf下的文件，确保在命令行可以正常使用 hadoop 命令  
+解压安装hive，配置HIVE_HOME/conf下的文件，确保在命令行可以正常使用 hive 命令，并且hive产生的元数据存放在mysql的hive数据库中  
+导出环境变量 HADOOP_HOM HIVE_HOME  
 4.打包  
-mvn package   
-打包在/web/target/exploded/zeus-web.war下  
+```shell
+mvn clean:clean
+mvn package -Dmaven.test.skip=true
+cd deploy
+mvn assembly:assembly
+```
+(maven中央仓库有时无法下载，可以尝试使用镜像：http://mirrors.ibiblio.org/maven2)   
+产出的war包在/deploy/target/zeus.war处 
 使用tomcat之类容器运行即可  
 
 
@@ -61,23 +80,10 @@ mvn package
 (1) web.xml添加一个filter，用来跳转到单点登陆系统  
 (2) Spring容器中添加一个Bean，实现com.taobao.zeus.web.Login.Filter.SSOLogin接口  
 
-3.配置hadoop相关环境
-默认的hadoop-site.xml和hive-site.xml在 /web/src/main/resources/templates下  
-修改相应的配置以对应相应的hadoop集群    
-服务器安装hadoop和hive客户端，并将相应的配置写入环境变量中
-```shell
-export HADOOP_HOME=hadoop_home_path
-export HADOOP_CONF_DIR=$HADOOP_HOME/conf
-export HIVE_HOME=hive_home_path
-export HIVE_CONF_DIR=$HIVE_HOME/conf
-export HIVE_LIB=${HIVE_HOME}/lib
-export HIVE_AUX_JARS_PATH=udf_jar_path
-```
-
-4.超级管理员配置  
+3.超级管理员配置  
 在com.taobao.zeus.store.Super中进行配置
 
-5.关于浏览器兼容性  
+4.关于浏览器兼容性  
 默认只支持webkit内核的浏览器，建议使用chrome  
 可以扩大浏览器范围，方法：/web/src/main/java/com/taobao/zeus/web/platform/Platform.gwt.xml 中注释掉 user.agent 这一行  
 当然这样会大致打包时间加长(gwt为了兼容不同的浏览器会编译更多的代码，导致打包变慢)  

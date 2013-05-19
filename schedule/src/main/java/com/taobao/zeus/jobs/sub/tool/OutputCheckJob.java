@@ -42,7 +42,7 @@ public class OutputCheckJob extends AbstractJob {
 		}
 		upperPath = upperPath.substring(0, upperPath.lastIndexOf("/"));
 		Path hdfsPath = new Path(upperPath);
-		FileSystem fs = FileSystem.get(ConfUtil.getWorkConf(jobContext));
+		FileSystem fs = FileSystem.get(ConfUtil.getDefaultCoreSite());
 		FileStatus[] files = fs.listStatus(hdfsPath);
 		double total = 0;
 		List<ContentSummary> dirFiles = new ArrayList<ContentSummary>();

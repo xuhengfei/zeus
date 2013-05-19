@@ -145,11 +145,7 @@ public class TableInfoTab implements IsWidget {
 			store.add(new ModelPropertyModel("注释", t.getComment()));
 			char fieldDelim = t.getFieldDelim()==null? '\001':t.getFieldDelim().toCharArray()[0];
 			store.add(new ModelPropertyModel("列分割符", fieldDelim+"("+getUnicode(fieldDelim)+")"));
-			store.add(new ModelPropertyModel(
-					"公共表数据字典",
-					"http://cheetah.alibaba-inc.com:8000/meta/manage/metaManage.htm?actionName=doMamageList&q="
-							+ t.getName()
-							+ "&packagename=taobao&isopen=0,1,2&dwlayer=All&level=0&curpage=1&pagesize=25"));
+			store.add(new ModelPropertyModel("公共表数据字典","请在代码中配置"));
 		}
 	}
 

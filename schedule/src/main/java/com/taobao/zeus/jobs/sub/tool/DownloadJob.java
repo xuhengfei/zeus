@@ -36,7 +36,6 @@ public class DownloadJob extends AbstractJob {
 
 	@Override
 	public Integer run() throws IOException {
-		initHadoopConf();
 		List<Job> jobs = new ArrayList<Job>();
 		for (Map<String, String> map : jobContext.getResources()) {
 			if (map.get("uri") != null) {
@@ -142,46 +141,4 @@ public class DownloadJob extends AbstractJob {
 		canceled = true;
 	}
 
-	/** 下载默认hadoop配置文件 */
-	private void initHadoopConf() {
-		Configuration conf = ConfUtil.getDefaultConf();
-		if (new File(jobContext.getWorkDir() + File.separator
-				+ "hadoop-site.xml").exists()) {
-			conf.addResource(new Path(jobContext.getWorkDir() + File.separator
-					+ "hadoop-site.xml"));
-		}
-		if (new File(jobContext.getWorkDir() + File.separator + "hive-site.xml")
-				.exists()) {
-			conf.addResource(new Path(jobContext.getWorkDir() + File.separator
-					+ "hive-site.xml"));
-		}
-		conf.size();// 通过此方法来让conf加载资源文件
-		Map<String, String> prop = jobContext.getProperties()
-				.getAllProperties();
-		for (String key : prop.keySet()) {
-			if (key.startsWith("hadoop.")) {
-				conf.set(key.substring("hadoop.".length()), prop.get(key));
-			}
-		}
-		try {
-			File f = new File(jobContext.getWorkDir() + File.separator
-					+ "hadoop-site.xml");
-			if (f.exists()) {
-				f.delete();
-			}
-			FileOutputStream fos = new FileOutputStream(f);
-			conf.writeXml(fos);
-			fos.close();
-			f = new File(jobContext.getWorkDir() + File.separator
-					+ "hive-site.xml");
-			if (f.exists()) {
-				f.delete();
-			}
-			fos = new FileOutputStream(f);
-			conf.writeXml(fos);
-			fos.close();
-		} catch (Exception e) {
-			log(e);
-		}
-	}
 }

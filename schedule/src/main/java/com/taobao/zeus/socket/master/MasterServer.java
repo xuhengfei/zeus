@@ -51,8 +51,8 @@ public class MasterServer{
 		}
 	}
 	
-	public synchronized void start(){
-		bootstrap.bind(new InetSocketAddress(9898));
+	public synchronized void start(int port){
+		bootstrap.bind(new InetSocketAddress(port));
 		ScheduleInfoLog.info("netty server start");
 	}
 	

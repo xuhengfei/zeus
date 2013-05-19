@@ -65,6 +65,10 @@
 	
 	<bean id="jobValidate" class="com.taobao.zeus.store.mysql.tool.JobValidate"></bean>
 	
-	<bean id="distributeLocker" class="com.taobao.zeus.schedule.DistributeLocker" init-method="init" />
+	<bean id="distributeLocker" class="com.taobao.zeus.schedule.DistributeLocker" init-method="init" >
+		<constructor-arg>
+			<value>${zeus.connect.port}</value>
+		</constructor-arg>
+	</bean>
 	
 </beans>

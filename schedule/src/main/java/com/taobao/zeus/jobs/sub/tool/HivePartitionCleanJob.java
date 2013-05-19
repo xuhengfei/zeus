@@ -32,7 +32,7 @@ public class HivePartitionCleanJob extends AbstractJob {
 		this.processer = p;
 		this.tables = p.getOutputTables();
 		this.keepDays = p.getKeepDays();
-		this.tableManager = new CliTableManager(ConfUtil.getWorkConf(jobContext));
+		this.tableManager = new CliTableManager(ConfUtil.getDefaultCoreSite());
 	}
 
 	@Override

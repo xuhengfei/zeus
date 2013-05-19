@@ -43,11 +43,21 @@ public class DistributeLocker extends HibernateDaoSupport{
 	
 	private ZeusSchedule zeusSchedule;
 	
+	private int port=9887;
+	
 	static{
 		try {
 			host=InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
 			//ignore
+		}
+	}
+	
+	public DistributeLocker(String port){
+		try {
+			this.port=Integer.valueOf(port);
+		} catch (NumberFormatException e) {
+			log.error("port must be a number", e);
 		}
 	}
 	
@@ -99,7 +109,7 @@ public class DistributeLocker extends HibernateDaoSupport{
 			lock.setServerUpdate(new Date());
 			getHibernateTemplate().update(lock);
 			
-			zeusSchedule.startup();
+			zeusSchedule.startup(port);
 		}else{//其他服务器抢占了锁
 			log.error("not my locker");
 			//如果最近更新时间在2分钟以上，则认为抢占的Master服务器已经失去连接，本服务器主动进行抢占
@@ -109,7 +119,7 @@ public class DistributeLocker extends HibernateDaoSupport{
 				lock.setServerUpdate(new Date());
 				lock.setSubgroup(Environment.getScheduleGroup());
 				getHibernateTemplate().update(lock);
-				zeusSchedule.startup();
+				zeusSchedule.startup(port);
 			}else{//如果Master服务器没有问题，本服务器停止server角色
 				zeusSchedule.shutdown();
 			}
@@ -117,7 +127,7 @@ public class DistributeLocker extends HibernateDaoSupport{
 		}
 		
 		try {
-			worker.connect(lock.getHost());
+			worker.connect(lock.getHost(),port);
 		} catch (Exception e) {
 			ScheduleInfoLog.error("start up worker fail", e);
 		}

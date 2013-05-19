@@ -8,3 +8,5 @@
 web/target/*
 client/target/*
 schedule/target/*
+
+web/src/main/resources/dependencies/HADOOP_HOME

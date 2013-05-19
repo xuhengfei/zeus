@@ -40,18 +40,6 @@ public class MapReduceJob extends JavaJob{
 	
 	@Override
 	public Integer run() throws Exception {
-		jobContext.getProperties().setProperty("instance.workDir", jobContext.getWorkDir());
-		Configuration conf=ConfUtil.getDefaultConf();
-		if(new File(jobContext.getWorkDir()+File.separator+"hadoop-site.xml").exists()){
-			conf.addResource(new Path(jobContext.getWorkDir()+File.separator+"hadoop-site.xml"));
-		}
-		conf.size();//通过此方法来让conf加载资源文件
-		Map<String, String> prop=jobContext.getProperties().getAllProperties();
-		for(String key:prop.keySet()){
-			if(key.startsWith("hadoop.")){
-				conf.set(key.substring("hadoop.".length()), prop.get(key));
-			}
-		}
 		List<Map<String, String>> resources=jobContext.getResources();
 		if(resources!=null && !resources.isEmpty()){
 			StringBuffer sb=new StringBuffer();
@@ -63,19 +51,7 @@ public class MapReduceJob extends JavaJob{
 					}
 				}
 			}
-			conf.set("tmpjars", sb.toString().substring(0, sb.toString().length()-1));
-		}
-		
-		try {
-			File f=new File(jobContext.getWorkDir()+File.separator+"hadoop-site.xml");
-			if(f.exists()){
-				f.delete();
-			}
-			FileOutputStream fos=new FileOutputStream(f);
-			conf.writeXml(fos);
-			fos.close();
-		} catch (Exception e) {
-			log(e);
+			jobContext.getProperties().setProperty("core-site.tmpjars", sb.toString().substring(0, sb.toString().length()-1));
 		}
 		return super.run();
 	}

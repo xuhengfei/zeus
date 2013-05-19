@@ -24,7 +24,7 @@ public class HDFSManager {
 
 	static {
 		try {
-			fs = FileSystem.get(ConfUtil.getDefaultZeusHadoopConf());
+			fs = FileSystem.get(ConfUtil.getDefaultCoreSite());
 		} catch (IOException e) {
 			log.error("Open HDFS FileSystem失败！", e);
 		}
@@ -53,7 +53,7 @@ public class HDFSManager {
 			return getPathSize(path);
 		}
 		try {
-			Configuration conf = ConfUtil.getDefaultZeusHadoopConf();
+			Configuration conf = ConfUtil.getDefaultCoreSite();
 			conf.set("hadoop.job.ugi", ugi);
 			FileSystem fs = FileSystem.get(conf);
 			return fs.getContentSummary(new Path(path)).getLength();

@@ -1,9 +1,11 @@
 package com.taobao.zeus.store;
 
-import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
@@ -28,10 +30,12 @@ public class CliTableManager implements TableManager {
 	public static String DEFAULT_DB = "default";
 
 	public CliTableManager() throws Exception {
-		HiveConf conf = new HiveConf();
-		conf.addResource(new ByteArrayInputStream(ConfUtil.getDefaultHiveXml()
-				.getBytes()));
-		client = new HiveMetaStoreClient(conf);
+		HiveConf conf=new HiveConf();
+		File f=new File(ConfUtil.getHiveConfDir()+File.separator+"hive-site.xml");
+		if(f.exists()){
+			conf.addResource(f.toURI().toURL());
+		}
+		client=new HiveMetaStoreClient(conf);
 	}
 
 	public CliTableManager(Configuration conf) throws Exception {

@@ -54,7 +54,7 @@ public class DataPreviewJob extends AbstractJob {
 		Path path = new Path(pathString);
 		Configuration conf = (Configuration) jobContext.getData("hadoop.conf");
 		if (conf == null) {
-			conf = ConfUtil.getDefaultConf();
+			conf = ConfUtil.getDefaultCoreSite();
 		}
 		if (ugi != null) {
 			conf.set("hadoop.job.ugi", ugi);

@@ -33,7 +33,7 @@ public class OutputCleanJob extends AbstractJob{
 		}
 		log("OutputClean 开始进行产出目录清理");
 		String path=ocp.getPath();
-		FileSystem fs=FileSystem.get(ConfUtil.getWorkConf(jobContext));
+		FileSystem fs=FileSystem.get(ConfUtil.getDefaultCoreSite());
 		FileStatus[] pathFiles=fs.listStatus(new Path(path));
 		boolean valid=true;
 		for(FileStatus f:pathFiles){

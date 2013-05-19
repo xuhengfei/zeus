@@ -86,10 +86,7 @@ public class PartitionDownloadServlet extends HttpServlet {
 		char lineDelim = t.getLineDelim() == null ? DEFAULT_LINE_DELIM : t
 				.getLineDelim().toCharArray()[0];
 
-		final Configuration conf = ConfUtil.getDefaultZeusHadoopConf();
-//		conf.set("proxy.hosts", "10.232.101.170:1080");
-//		conf.set("hadoop.rpc.socket.factory.class.default",
-//				"com.taobao.cmp.proxy.HadoopProxy");
+		final Configuration conf = ConfUtil.getDefaultCoreSite();
 		Profile profile = profileManager.findByUid(user.getUid());
 		if (profile != null) {
 			String ugi = profile.getHadoopConf().get("hadoop.hadoop.job.ugi");

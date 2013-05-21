@@ -17,9 +17,21 @@ public class MapReduceMain {
 		String workDir=System.getenv("instance.workDir");
 		String jar=findContainingJar(main);
 		Configuration conf=new Configuration(false);
-		conf.addResource(new Path(workDir+File.separator+"hadoop-site.xml"));
+		File f=new File(workDir+File.separator+"core-site.xml");
+		if(f.exists()){
+			conf.addResource(f.toURI().toURL());
+		}else{
+			File core=new File(System.getenv("HADOOP_HOME")+File.separator+"conf"+File.separator+"core-site.xml");
+			if(core.exists()){
+				conf.addResource(core.toURI().toURL());
+			}
+		}
 		conf.set("mapred.jar", jar);
-		conf.writeXml(new FileOutputStream(new File(workDir+File.separator+"hadoop-site.xml")));
+		File target=new File(workDir+File.separator+"core-site.xml");
+		if(!target.exists()){
+			target.mkdirs();
+		}
+		conf.writeXml(new FileOutputStream(target));
 		
 		Method method=main.getDeclaredMethod("main", new Class[]{String[].class});
 		String[] nargs=new String[args.length-1];

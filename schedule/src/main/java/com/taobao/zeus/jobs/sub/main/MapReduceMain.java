@@ -27,7 +27,7 @@ public class MapReduceMain {
 			}
 		}
 		conf.set("mapred.jar", jar);
-		File target=new File(workDir+File.separator+"core-site.xml");
+		File target=new File(workDir+File.separator+"hadoop_conf"+File.separator+"core-site.xml");
 		if(!target.exists()){
 			target.mkdirs();
 		}

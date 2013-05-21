@@ -163,6 +163,7 @@ public abstract class ProcessJob extends AbstractJob implements Job {
 				envMap.put(key, jobContext.getProperties().getProperty(key));
 			}
 		}
+		envMap.put("instance.workDir", jobContext.getWorkDir());
 		
 		List<String> commands=getCommandList();
 		for(String s:commands){

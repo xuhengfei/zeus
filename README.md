@@ -33,6 +33,7 @@ Hadoop任务的自动调度
 快速启动(Quick Start)：  
 
 ###快速预览方案：  
+0.安装 dos2unix 命令  
 1.下载war包 <a href="http://xuhengfei.com/assets/downloads/zeus.war" target="_blank">下载</a>  
 2.本地创建Mysql数据库，创建用户:zeus,密码:zeus,创建数据库:zeus  
 3.将war包放在web容器下启动  
@@ -51,9 +52,11 @@ Hadoop任务的自动调度
 zeus数据库:/web/src/main/resources/persistence.xml中对数据库进行配置  
 hive元数据库:HIVE_HOME/conf 下的hive-site.xml进行配置  
 4.环境配置  
+安装 dos2unix 命令  
 解压安装hadoop,配置HADOOP_HOME/conf下的文件，确保在命令行可以正常使用 hadoop 命令  
 解压安装hive，配置HIVE_HOME/conf下的文件，确保在命令行可以正常使用 hive 命令，并且hive产生的元数据存放在mysql的hive数据库中  
 导出环境变量 HADOOP_HOM HIVE_HOME  
+安装 dos2unix 命令 
 4.打包  
 ```shell
 mvn clean:clean

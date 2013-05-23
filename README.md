@@ -48,7 +48,7 @@ Hadoop任务的自动调度
 因为此jar不在maven仓库中，此jar已经在/web/libs/highcharts-1.4.0.jar  
 将systemPath路径设置为绝对路径  
 3.数据库配置  
-创建zeus数据库和hive数据库，启动后数据库里面的表会自动创建  
+创建zeus(utf8)数据库和hive(latin1)数据库，启动后数据库里面的表会自动创建  
 zeus数据库:/web/src/main/resources/persistence.xml中对数据库进行配置  
 hive元数据库:HIVE_HOME/conf 下的hive-site.xml进行配置  
 4.环境配置  

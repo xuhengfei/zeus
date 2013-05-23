@@ -1,4 +1,4 @@
-维护者：<a href="http://github.com/xuhengfei" target="_blank">xuhengfei</a>  
+维护者：<a href="http://weibo.com/2482348040/" target="_blank">淘宝周方</a>  
 ##宙斯(zeus)是什么
 宙斯是一个完整的Hadoop的作业平台  
 从Hadoop任务的调试运行到生产任务的周期调度

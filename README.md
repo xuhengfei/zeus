@@ -56,8 +56,7 @@ hive元数据库:HIVE_HOME/conf 下的hive-site.xml进行配置
 解压安装hadoop,配置HADOOP_HOME/conf下的文件，确保在命令行可以正常使用 hadoop 命令  
 解压安装hive，配置HIVE_HOME/conf下的文件，确保在命令行可以正常使用 hive 命令，并且hive产生的元数据存放在mysql的hive数据库中  
 导出环境变量 HADOOP_HOM HIVE_HOME  
-安装 dos2unix 命令 
-4.打包  
+5.打包  
 ```shell
 mvn clean:clean
 mvn package -Dmaven.test.skip=true

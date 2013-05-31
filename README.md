@@ -90,3 +90,6 @@ mvn assembly:assembly
 可以扩大浏览器范围，方法：/web/src/main/java/com/taobao/zeus/web/platform/Platform.gwt.xml 中注释掉 user.agent 这一行  
 当然这样会大致打包时间加长(gwt为了兼容不同的浏览器会编译更多的代码，导致打包变慢)  
 即便如此，我们也不保证IE等浏览器能够正常使用！  
+
+QQ交流群：336733312  
+

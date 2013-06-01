@@ -32,7 +32,11 @@ public class MapReduceJob extends JavaJob{
 		String args=getMainArguments();
 		String classpath=getClassPaths();
 		jobContext.getProperties().setProperty(RunningJobKeys.RUN_JAVA_MAIN_CLASS, "com.taobao.zeus.jobs.sub.main.MapReduceMain");
-		jobContext.getProperties().setProperty(RunningJobKeys.RUN_CLASSPATH, System.getenv("JOB_CLASSPATH")+File.pathSeparator+classpath+
+		String hadoophome=System.getenv("HADOOP_HOME");
+		if(hadoophome!=null && !"".equals("")){
+			classpath+=File.pathSeparator+hadoophome+"/*";
+		}
+		jobContext.getProperties().setProperty(RunningJobKeys.RUN_CLASSPATH, classpath+
 				File.pathSeparator+getSourcePathFromClass(MapReduceMain.class));
 		jobContext.getProperties().setProperty(RunningJobKeys.RUN_JAVA_MAIN_ARGS, main+" "+args);
 		

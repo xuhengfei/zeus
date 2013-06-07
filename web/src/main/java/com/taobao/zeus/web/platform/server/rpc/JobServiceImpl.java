@@ -200,7 +200,7 @@ public class JobServiceImpl implements JobService{
 			}
 		}
 		//本地配置项中的hadoop.hadoop.job.ugi 只有管理员和owner才能查看，继承配置项不能查看
-		String SecretKey="hadoop.hadoop.job.ugi";
+		String SecretKey="core-site.hadoop.job.ugi";
 		if(jobModel.getLocalProperties().containsKey(SecretKey)){
 			String value=jobModel.getLocalProperties().get(SecretKey);
 			if(value.lastIndexOf("#")==-1){

@@ -102,7 +102,7 @@ public class CardHistory extends CenterTemplate implements
 											String job=ToolUtil.extractJobId(line);
 											if(job!=null){
 												lastJobId=job;
-												String newline=line.replaceAll(job, "<a target='_blank' href='http://10.249.54.103:50030/jobdetails.jsp?jobid="+job+"&refresh=30'>"+job+"</a>");
+												String newline=line.replaceAll(job, "<a target='_blank' href='jobdetail.jsp?type=2&jobid="+job+">"+job+"</a>");
 												sb.append(newline+"<br/>");
 											}else{
 												sb.append(line+"<br/>");
@@ -116,7 +116,7 @@ public class CardHistory extends CenterTemplate implements
 										if(result.getEndTime()!=null || lastJobId==null){
 											container.hide(LayoutRegion.SOUTH);
 										}else if(lastJobId!=null){
-											String url="http://"+Location.getHost()+"/jobdetail.jsp?jobId="+lastJobId+"&timestamp="+new Date().getTime();
+											String url="jobdetail.jsp?type=1&jobId="+lastJobId+"&timestamp="+new Date().getTime();
 											frame.setUrl(url);
 											container.show(LayoutRegion.SOUTH);
 										}

@@ -15,6 +15,11 @@
 					classpath:broadcast-applicationContext.xml,
 					classpath:persistence.xml</param-value>
 	</context-param>
+	
+	<context-param>
+		<param-name>jobtracker</param-name>
+		<param-value>${zeus.jobtracker}</param-value>
+	</context-param>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

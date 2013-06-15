@@ -123,7 +123,7 @@ public class HistoryTab extends ContentPanel {
 							String job=ToolUtil.extractJobId(line);
 							if(job!=null){
 								String newline = line.replaceFirst(job,
-										"<a target='_blank' href='http://yunti.alibaba-inc.com/jobhistory.php?jobid="
+										"<a target='_blank' href='jobdetail.jsp?type=3&jobid="
 												+ job + "'>" + job + "</a>");
 								logSb.append(newline+"<br/>");
 							}else{

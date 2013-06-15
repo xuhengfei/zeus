@@ -105,8 +105,8 @@ public class LogTextPanel extends ContentPanel{
 							String job=ToolUtil.extractJobId(line);
 							if(job!=null){
 								String newline = line.replaceFirst(job,
-										"<a target='_blank' href='http://10.249.54.103:50030/jobdetails.jsp?jobid="
-												+ job + "&refresh=30'>"
+										"<a target='_blank' href='jobdetail.jsp?type=3&jobid="
+												+ job + ">"
 												+ job + "</a>");
 								sb.append(newline+"<br/>");
 							}else{

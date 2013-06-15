@@ -12,7 +12,12 @@ Hive元数据的可视化查询与数据预览
 Hadoop任务的自动调度  
 完整的文档管理  
 
-
+完整的学习文档请进入：
+* [文档首页](https://github.com/alibaba/zeus/wiki)
+* [安装指导文档](https://github.com/alibaba/zeus/wiki/安装指导文档)
+* [用户入门手册](https://github.com/alibaba/zeus/wiki/用户入门手册)
+* [用户进阶手册](https://github.com/alibaba/zeus/wiki/用户进阶手册)
+* [管理员配置手册](https://github.com/alibaba/zeus/wiki/管理员配置手册)
  
 ###宙斯开源，不仅仅是开源技术，更是开源产品  
 开发中心，一个文档管理，开发调试的环境，在任务上线前的主要工作区域  

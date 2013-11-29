@@ -1,4 +1,3 @@
-
 ##宙斯(zeus)是什么
 宙斯是一个完整的Hadoop的作业平台  
 从Hadoop任务的调试运行到生产任务的周期调度
@@ -34,15 +33,7 @@ Hadoop任务的自动调度
 
 <a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-schedule.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-schedule.png" /></a>   
 
-##使用指南    
-快速启动(Quick Start)：  
 
-###快速预览方案：  
-0.安装 dos2unix 命令  
-1.下载war包 <a href="http://xuhengfei.com/assets/downloads/zeus.war" target="_blank">下载</a>  
-2.本地创建Mysql数据库，创建用户:zeus,密码:zeus,创建数据库:zeus  
-3.将war包放在web容器下启动  
-快速预览方案能够启动web应用，使用shell脚本。但是不能使用其他更多功能(因为没有配置好)
 
 更多文档，请进入<a href="http://github.com/alibaba/zeus/wiki" target="_blank">文档首页</a> 
 

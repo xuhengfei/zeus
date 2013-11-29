@@ -1,4 +1,4 @@
-维护者：<a href="http://weibo.com/2482348040/" target="_blank">淘宝周方</a>  
+
 ##宙斯(zeus)是什么
 宙斯是一个完整的Hadoop的作业平台  
 从Hadoop任务的调试运行到生产任务的周期调度
@@ -46,8 +46,6 @@ Hadoop任务的自动调度
 
 更多文档，请进入<a href="http://github.com/alibaba/zeus/wiki" target="_blank">文档首页</a> 
 
-
-QQ交流群：336733312  
 
 
 关于浏览器兼容性  

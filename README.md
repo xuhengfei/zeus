@@ -25,13 +25,13 @@ Hadoop任务的自动调度
 <a href="http://xuhengfei.github.io/assets/images/articles/zeus/snapshot-schedule.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/snapshot-schedule.png" /></a>  
 
 ##宙斯运行原理
-<a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-network.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-network.png" /></a>  
+<a href="http://yun.duiba.com.cn/xuhengfei/graph-network.png" target="_blank"><img src="http://yun.duiba.com.cn/xuhengfei/graph-network.png" /></a>  
 
-<a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-struct.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-struct.png" /></a>  
+<a href="http://yun.duiba.com.cn/xuhengfei/graph-struct.png" target="_blank"><img src="http://yun.duiba.com.cn/xuhengfei/graph-struct.png" /></a>  
 
-<a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-workflow.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-workflow.png" /></a>  
+<a href="http://yun.duiba.com.cn/xuhengfei/graph-workflow.png" target="_blank"><img src="http://yun.duiba.com.cn/xuhengfei/graph-workflow.png" /></a>  
 
-<a href="http://xuhengfei.github.io/assets/images/articles/zeus/graph-schedule.png" target="_blank"><img src="http://xuhengfei.github.io/assets/images/articles/zeus/graph-schedule.png" /></a>   
+<a href="http://yun.duiba.com.cn/xuhengfei/graph-schedule.png" target="_blank"><img src="http://yun.duiba.com.cn/xuhengfei/graph-schedule.png" /></a>   
 
 
 
